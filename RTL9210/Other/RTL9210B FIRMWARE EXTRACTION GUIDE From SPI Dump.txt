@@ -1,0 +1,49 @@
+================================================================================
+  REALTEK RTL9210B FIRMWARE EXTRACTION GUIDE
+  How to convert a raw SPI Hardware Dump into an MPTool-Flashable .bin
+================================================================================
+
+[IMPORTANT PREPARATION]
+Always work on a COPY of your original SPI dump. Never edit your only backup.
+
+--------------------------------------------------------------------------------
+EXTRACTION METHOD (Using v1.33.5 as an Example / With Save & Re-Open Steps)
+--------------------------------------------------------------------------------
+
+1. REMOVE EMBEDDED LED BLOCK
+   • Open your raw SPI dump in a Hex Editor (e.g., HxD).
+   • Select from offset: 00000000
+   • To offset:         00003FFF
+   • Action:            DELETE (This removes the 16KB LED block)
+
+2. SAVE, CLOSE, AND RE-OPEN THE FILE
+   • Save the file.
+   • Close your hex editor completely.
+   • Re-open the saved file back into the editor to reset the counter.
+
+3. REMOVE 96KB BLOCK
+   • Select from offset: 00004000
+   • To offset:         0001BFFF
+   • Action:            DELETE (96KB block inserted by MPtool_Lite at flash time)
+
+4. SAVE YOUR COMPLETED FILE
+   • Save as: RTL9210B_v1.33.5.100623.bin (Adjust name/date if extracting a different version)
+   • It is now ready to load directly into the RTL9210 MPTool utility.
+
+--------------------------------------------------------------------------------
+[OPTIONAL] INJECTING STOCK DEFAULT IDENTIFICATION AREA
+--------------------------------------------------------------------------------
+To set the device profile/ID area back to standard factory settings, you can 
+inject a clean signature segment from a known working stock binary file:
+
+1. Open a known good, working stock generic firmware .bin file.
+2. Copy the exact block from offset 00000800 through to 00008DFF.
+3. Open your newly created custom firmware .bin file.
+4. Select the identical region (00000800 to 00008DFF).
+5. Paste-Write (Overwrite) the copied block directly over it.
+6. Save the file.
+================================================================================
+
+
+
+
