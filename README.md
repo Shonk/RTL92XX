@@ -1,1 +1,1 @@
-Unified repository for tracking Realtek bridge controller firmware, focusing on RTL9201/RTL9201R alongside the RTL9210 and RTL9220 series.
+Unified repository for tracking Realtek bridge controller firmware, focusing on RTL9201 / RTL9210 / RTL9220 series.
