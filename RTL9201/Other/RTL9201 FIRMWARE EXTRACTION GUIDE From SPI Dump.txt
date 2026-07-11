@@ -1,0 +1,75 @@
+================================================================================
+  REALTEK RTL9201 / RTL9201R FIRMWARE EXTRACTION GUIDE
+  How to convert a raw SPI Hardware Dump into an MPTool-Flashable .bin
+================================================================================
+
+[IMPORTANT PREPARATION]
+Always work on a COPY of your original SPI dump. Never edit your only backup.
+
+--------------------------------------------------------------------------------
+METHOD A: USING ABSOLUTE OFFSETS (Recommended - No reloading required)
+--------------------------------------------------------------------------------
+Open your raw SPI dump in a Hex Editor (e.g., HxD) and perform these 3 actions:
+
+1. REMOVE EMBEDDED LED BLOCK
+   • Select from offset: 00000000
+   • To offset:         00003FFF
+   • Action:            DELETE (This removes the 16KB LED block)
+
+2. REMOVE ALIGNMENT PADDING
+   • Select from offset: 00001000
+   • To offset:         00001FFF
+   • Action:            DELETE (This shifts 00002000 down to 00001000)
+
+3. TRIM THE TRAILING CODE TO SIZE
+   Keep only the exact bytes required for your specific firmware trunk. Select 
+   from the starting offset below all the way to the very END of the file, and 
+   DELETE everything selected.
+
+   • For 1.34.x / 452KB Trunks: Delete everything AFTER offset 00070FFF
+   • For 1.33.x / 388KB Trunks: Delete everything AFTER offset 00060FFF
+     (Includes 1.33.88, 1.33.3, and 9.32.74)
+
+4. SAVE YOUR COMPLETED FILE
+   • Save as: [Your_Firmware_Name]_signed.bin
+   • It is now ready to load directly into MPTool Lite / Mini.
+
+--------------------------------------------------------------------------------
+METHOD B: STEP-BY-STEP SHIFT METHOD
+--------------------------------------------------------------------------------
+If you prefer to save and reload the file to reset the editor's counter:
+
+1. Delete from 00000000 to 00003FFF. 
+2. SAVE, CLOSE, and RE-OPEN the file.
+3. Delete from 00001000 to 00001FFF.
+4. Trim the file tail to its final exact size and delete everything after:
+   • For 452KB size (e.g., 1.34.29): Keep up to 00070FFF. Delete after.
+   • For 400KB size:                Keep up to 00063FFF. Delete after.
+   • For 388KB size (e.g., 1.33.x): Keep up to 00060FFF. Delete after.
+
+--------------------------------------------------------------------------------
+[OPTIONAL] INJECTING STOCK DEFAULT IDENTIFICATION AREA
+--------------------------------------------------------------------------------
+To set the device profile/ID area from being modified, you can 
+inject a clean signature segment from a known working stock binary file:
+
+1. Open a known good, working stock generic firmware .bin file.
+2. Copy the exact block from offset 00000800 through to 00008DFF.
+3. Open your newly created custom firmware .bin file.
+4. Select the identical region (00000800 to 00008DFF).
+5. Paste-Write (Overwrite) the copied block directly over it.
+6. Save the file.
+
+--------------------------------------------------------------------------------
+[TROUBLESHOOTING FLASH PERCENTAGE STATUS]
+• If the binary is under-trimmed (too large): The updater utility will still 
+  flash successfully, but the progress bar will prematurely finish and close 
+  out when it hits roughly ~80%.
+• If the binary is over-trimmed (too small): The flash operation will fail 
+  entirely, and the controller will drop into a "GD Firmware" loop recovery state.
+================================================================================
+
+
+
+
+
