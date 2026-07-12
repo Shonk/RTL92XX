@@ -1,0 +1,57 @@
+================================================================================
+  REALTEK RTL9220 FIRMWARE EXTRACTION GUIDE
+  How to convert a raw SPI Hardware Dump into an MPTool-Flashable .bin
+================================================================================
+
+[IMPORTANT PREPARATION]
+Always work on a COPY of your original SPI dump. Never edit your only backup.
+
+--------------------------------------------------------------------------------
+EXTRACTION METHOD (Using v1.33.89 as an Example / With Save & Re-Open Steps)
+--------------------------------------------------------------------------------
+
+1. REMOVE EMBEDDED LED BLOCK
+   • Select from offset: 00000000
+   • To offset:         00003FFF
+   • Action:            DELETE (This removes the 16KB LED block)
+
+2. SAVE, CLOSE, AND RE-OPEN THE FILE
+   • Save the file.
+   • Close your hex editor completely.
+   • Re-open the saved file back into the editor to reset the counter.
+
+3. REMOVE ALIGNMENT PADDING
+   • Select from offset: 00001000
+   • To offset:         00001FFF
+   • Action:            DELETE (This shifts 00002000 down to 00001000)
+
+4. SAVE, CLOSE, AND RE-OPEN THE FILE
+   • Save the file.
+   • Close your hex editor completely.
+   • Re-open the saved file back into the editor to reset the counter.
+
+5. TRIM THE TRAILING CODE TO SIZE
+   Keep only the exact bytes required for your specific firmware trunk. Select 
+   from the starting offset below all the way to the very END of the file, and 
+   DELETE everything selected.
+
+   • For 1.34.x / 452KB Trunks: Delete everything AFTER offset 00070FFF
+   • For 1.33.x / 388KB Trunks: Delete everything AFTER offset 00060FFF
+
+6. SAVE YOUR COMPLETED FILE
+   • Save as: RTL9220VA_v1.33.89.072624.bin (Adjust name/date if extracting a different version)
+   • It is now ready to load directly into the RTL9210 MPTool utility.
+
+--------------------------------------------------------------------------------
+[OPTIONAL] INJECTING STOCK DEFAULT IDENTIFICATION AREA
+--------------------------------------------------------------------------------
+To set the device profile/ID area back to standard factory settings, you can 
+inject a clean signature segment from a known working stock binary file:
+
+1. Open a known good, working stock generic firmware .bin file.
+2. Copy the exact block from offset 00000800 through to 00008DFF.
+3. Open your newly created custom firmware .bin file.
+4. Select the identical region (00000800 to 00008DFF).
+5. Paste-Write (Overwrite) the copied block directly over it.
+6. Save the file.
+================================================================================
