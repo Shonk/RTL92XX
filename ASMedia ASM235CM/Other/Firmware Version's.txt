@@ -1,0 +1,41 @@
+ASMT-2235 (ASM235CM) 10Gbps
+ASMT-2225 (ASM225CM) Same Chip Downbinned to 5Gbps
+These firmwares can be flashed on ASM225CM or ASM235CM the 10Gbps or 5Gbps Limit is done at the Chip Level
+
+171120_D1_1E_80.bin 
+10 Gbps on ASM235CM = Yes
+Device Manager ID = Drive ID Passed Through
+USB Devce ID = Correct
+Led = Normal
+Drive ID Pass Through = Yes
+Trim = Yes
+Detected as SSD In Optimize = Detected as Solid State Drive
+UASP = Yes
+Directly Dumped From My Ugreen 50743 2.5" SATA Enclosure (ASM235CM) 
+
+171120_D1_1E_00.bin
+10 Gbps on ASM235CM = Yes
+Device Manager ID = Drive ID Passed Through
+USB Devce ID = Correct
+Led = Normal
+Drive ID Pass Through = Yes
+Trim = Yes
+Detected as SSD In Optimize = Detected as Solid State Drive
+UASP = Yes
+Directly Dumped From My Orico PWM2 M.2 SATA Enclosure (ASM225CM)
+
+230830_D1_7D_80.bin
+10 Gbps on ASM235CM = Yes
+Device Manager ID = Drive ID Passed Through
+USB Devce ID = Correct
+Led = Normal
+Drive ID Pass Through = Yes
+Trim = Yes
+Detected as SSD In Optimize = Detected as Solid State Drive
+UASP = Yes
+
+
+
+
+
+
