@@ -1,0 +1,1 @@
+Can only dump Main rom with this no flash no nvram dump
