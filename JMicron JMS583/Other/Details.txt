@@ -1,0 +1,48 @@
+Latest firmware is JMS583-STD-Release-v00.02.01.04-Bus Power.bin
+
+
+First make a backup of your complete firmware including nvram
+incase you ever want to restore it to factory firmware or nvram
+
+FwUpdateTool_v1_19_17_6
+tick RD Version
+tick Backup Old Firmware Only
+Run
+
+
+How to flash without messing with nvram with FwUpdateTool_v1_19_17_6.exe 
+(e.g. update firmware and leave factory nvram intact)
+
+FwUpdateTool_v1_19_17_6
+RD Version Tick
+Include Nvram Untick
+Load a rom and flash it
+
+How to flash and make custom nvram changed vid/pid device name, power management etc
+use JMMassProd_v1_16_16_5
+
+Firmware Releases
+
+some oem's put numbers in the start of the firmware bigger number isnt better
+
+234.01.00.01 for example
+this is jmicrons 00.01.00.01 so its super old
+
+my factory firmware was
+195.02.00.04
+this is jmicrons 00.02.00.04
+
+the latest firmware as of today is
+
+JMS583-STD-Release-v00.02.01.04-Bus Power.bin
+
+
+
+
+
+
+
+
+
+
+
